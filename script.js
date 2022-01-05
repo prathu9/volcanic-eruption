@@ -14,8 +14,8 @@ img.onload = () => {
 }
 
 const landSurface = (noOfLandObjects) => {
-    const landColor = ['#310600', '#4d1104',
-                       '#3c0b04', '#000']
+    const landColor = ['#0c0404',
+                       '#200102', '#000']//#310600 '#4d1104'
     for(let i=0; i < noOfLandObjects; i++){
         const x = Math.random()*canvas.width + 0;
         const y = Math.random()*(canvas.height - (canvas.height)*(70/100)) + (canvas.height)*(70/100);
@@ -38,11 +38,11 @@ const volcano = () => {
     ctx.beginPath();
     ctx.fillStyle = "#000";
     ctx.moveTo(volPosX, volPosY);
-    ctx.lineTo(volPosX-(volcanoBase/2), volPosY);
-    ctx.lineTo(volPosX-(volcanoBase/2)+25, volPosY-(volcanoHeight-350));
-    ctx.lineTo(volPosX-(volcanoBase/2)+35, volPosY-(volcanoHeight-320));
-    ctx.lineTo(volPosX-(volcanoBase/2)+45, volPosY-(volcanoHeight-300));
-    ctx.lineTo(volPosX-(volcanoBase/2)+70, volPosY-(volcanoHeight-250));
+    ctx.lineTo(volPosX-(volcanoBase/2)-30, volPosY);
+    ctx.lineTo(volPosX-(volcanoBase/2), volPosY-(volcanoHeight-350));
+    ctx.lineTo(volPosX-(volcanoBase/2)+20, volPosY-(volcanoHeight-320));
+    ctx.lineTo(volPosX-(volcanoBase/2)+32, volPosY-(volcanoHeight-300));
+    ctx.lineTo(volPosX-(volcanoBase/2)+60, volPosY-(volcanoHeight-250));
     ctx.lineTo(volPosX-(volcanoBase/2)+100, volPosY-(volcanoHeight-180));
     ctx.lineTo(volPosX-(volcanoBase/2)+110, volPosY-(volcanoHeight-175));
     ctx.lineTo(volPosX-(volcanoBase/2)+120, volPosY-(volcanoHeight-170));
