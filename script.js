@@ -1,4 +1,5 @@
 const canvas = document.getElementById('canvas');
+const lavaCanvas = document.getElementById('lava-canvas');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -28,6 +29,66 @@ const landSurface = (noOfLandObjects) => {
         ctx.closePath();
         ctx.fill();
     }
+}
+
+const lavaEffect = (volPosX, volPosY) => {
+    const lavaCtx = lavaCanvas.getContext('2d');
+    lavaCanvas.width = window.innerWidth;
+    lavaCanvas.height = window.innerHeight;
+    let lavaParticlesArray = [];
+    const lavaColor = ["red", "#fa7510"]
+
+    class LavaParticle{
+        constructor(){
+            //this.lavaPosX = Math.random()*((lavaCanvas.width/2 + 50)-(lavaCanvas.width/2  - 10))+(lavaCanvas.width/2 - 10);
+            this.lavaPosX = Math.random()*((volPosX+50) - (volPosX-5))+volPosX-5;
+            this.lavaPosY = lavaCanvas.height/2 - 90;
+            this.lavaSize = 10;
+            this.speedY = Math.random()*(0.9 - 0.1)+0.1;
+            this.lavaColor = lavaColor[Math.random()*(1-0)-0];
+        }
+
+        updateLava(){
+            this.lavaPosY -= this.speedY;
+            if(this.lavaSize > 0.1 ){
+                this.lavaSize -= 0.09;
+            }
+        }
+
+        drawLava(){
+            lavaCtx.beginPath();
+            lavaCtx.fillStyle = "red";
+            lavaCtx.arc(this.lavaPosX, this.lavaPosY,this.lavaSize, 0, Math.PI*2);
+            lavaCtx.fill();
+            lavaCtx.closePath();
+        }
+    }
+
+    const createLava = () => {
+        for(let i=0; i < 10; i++){
+            lavaParticlesArray.push(new LavaParticle());
+        }
+    }
+
+    const animateLava = () => {
+        lavaCtx.clearRect(0,0,lavaCanvas.width, lavaCanvas.height);
+        for(let i=0; i < lavaParticlesArray.length; i++){
+            lavaParticlesArray[i].updateLava();
+            lavaParticlesArray[i].drawLava();
+        }
+        lavaParticlesArray = lavaParticlesArray.filter(lavaParticle => {
+            return lavaParticle.lavaSize > 0.1; 
+        })
+
+        if(lavaParticlesArray.length === 0){
+            createLava();
+        }
+
+        requestAnimationFrame(animateLava);
+    }
+
+    createLava();
+    animateLava();
 }
 
 const volcano = () => {
@@ -72,14 +133,46 @@ const volcano = () => {
     ctx.lineTo(volPosX-(volcanoBase/2)+120, volPosY-(volcanoHeight-178));
     ctx.fill();
     ctx.closePath();
+
+    lavaEffect(volPosX, volPosY);
 }
 
 
+const lavaFlow = () => {
+    let FlowingLavaParticlesArray = [];
+    class FlowingLavaParticle{
+        constructor(){
+            this.x = volPosX;
+            this.y = volposY - (volcanoHeight-170);
+            this.size = 10;
+            this.color = '#f00';
+        }
+
+        update(){
+            this.y += 0.1;
+        }
+
+        draw(){
+            ctx.beginPath();
+            ctx.fillStyle = this.color;
+            ctx.arc(this.x, this.y,this.size, 0, Math.PI*2);
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+
+    const createLavaParticles = () => {
+        ctx.clearRect(0,0,)
+    }
+}
 
 
 window.addEventListener('resize',() => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    land();
-volcano();  
+    lavaCanvas.width = 200;
+    lavaCanvas.height = 300;
+    landSurface(400);
+    volcano();  
+    landSurface(100);
 })
