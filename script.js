@@ -31,7 +31,7 @@ const landSurface = (noOfLandObjects) => {
     }
 }
 
-const lavaEffect = (volPosX, volPosY) => {
+const lavaEffect = (volPosX) => {
     const lavaCtx = lavaCanvas.getContext('2d');
     lavaCanvas.width = window.innerWidth;
     lavaCanvas.height = window.innerHeight;

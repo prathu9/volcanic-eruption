@@ -41,7 +41,7 @@ body{
 
 @media screen and (max-height: 500px){
     #lava-canvas{
-        display:none;
+        transform:translateY(-20px);
     }
 }
 
